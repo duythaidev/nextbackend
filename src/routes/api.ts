@@ -9,6 +9,9 @@ import {
 
 const router = Router();
 
+router.use(function (req, res, next) {
+    setTimeout(next, 2000)
+});
 router.get('/', getItems);
 router.get('/:id', getItemById);
 router.post('/', createItem);

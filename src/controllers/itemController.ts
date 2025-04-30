@@ -9,12 +9,13 @@ export const createItem = (req: Request, res: Response, next: NextFunction) => {
     items.push(newItem);
     res.status(201).json(newItem);
   } catch (error) {
-    next(error);
+    next(error)
   }
 };
 
 // Read all items
 export const getItems = (req: Request, res: Response, next: NextFunction) => {
+  console.log(items)
   try {
     res.json(items);
   } catch (error) {

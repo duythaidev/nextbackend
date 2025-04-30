@@ -1,15 +1,35 @@
-import dotenv from 'dotenv';
+import { Options } from "sequelize";
+require('dotenv').config();
 
-dotenv.config();
-
-interface Config {
-  port: number;
-  nodeEnv: string;
+interface ConfigTs {
+  development: Options;
+  test: Options;
+  production: Options;
 }
 
-const config: Config = {
-  port: Number(process.env.PORT) || 8000,
-  nodeEnv: process.env.NODE_ENV || 'development',
+const configDB: ConfigTs = {
+  development: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect:  'mysql',
+  },
+  test: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect:  'mysql',
+  },
+  production: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect:  'mysql',
+  },
 };
+export default configDB;
 
-export default config;
+module.exports = configDB;

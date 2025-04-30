@@ -5,32 +5,32 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts",
+    "dev": "nodemon --watch src/**/*.ts --exec ts-node src/server.ts",
     "lint": "eslint 'src/**/*.ts'"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "body-parser": "^2.2.0",
-    "cors": "^2.8.5",
-    "mysql2": "^3.14.1",
-    "sequelize": "^6.37.7",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0"
+    "body-parser": "2.2.0",
+    "cors": "2.8.5",
+    "mysql2": "3.14.1",
+    "sequelize": "6.37.7",
+    "dotenv": "16.5.0",
+    "express": "5.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.27.0",
-    "@babel/core": "^7.26.10",
-    "@babel/node": "^7.26.0",
-    "@babel/preset-env": "^7.26.9",
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.15.3",
-    "eslint": "^9.25.1",
-    "nodemon": "^3.1.10",
-    "prettier": "^3.5.3",
-    "sequelize-cli": "^6.6.2",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "@babel/cli": "7.27.0",
+    "@babel/core": "7.26.10",
+    "@babel/node": "7.26.0",
+    "@babel/preset-env": "7.26.9",
+    "@types/express": "5.0.1",
+    "@types/node": "22.15.3",
+    "eslint": "9.25.1",
+    "nodemon": "3.1.10",
+    "prettier": "3.5.3",
+    "sequelize-cli": "6.6.2",
+    "ts-node": "10.9.2",
+    "typescript": "5.8.3"
   }
 }
