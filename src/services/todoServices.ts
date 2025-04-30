@@ -18,19 +18,26 @@ const createUserTodos = async (description: string, userId: number) => {
     });
 }
 const checkUserTodos = async (todoId: number, isChecked: boolean, userId: number) => {
-    return await db.Todo.update(
+    const [updatedCount, updatedRows] = await db.Todo.update(
         { isChecked },
         {
             returning: true,
             where: {
                 id: todoId,
-                userId
-            }
+                userId,
+            },
         }
     );
-}
+
+    if (updatedRows === 0) {
+        throw new Error('Todo not found or unauthorized');
+    }
+
+    return updatedRows[0];
+};
+
 const removeUserTodos = async (todoId: number, userId: number) => {
-    return await db.Todo.destroy(
+    const res = await db.Todo.destroy(
         {
             returning: true,
             where: {
@@ -39,6 +46,10 @@ const removeUserTodos = async (todoId: number, userId: number) => {
             }
         }
     );
+    if (res === 0) {
+        throw new Error("Bug remove todo");
+    }
+    return res
 }
 
 export { fetchAllTodos, fetchUserTodos, checkUserTodos, createUserTodos, removeUserTodos }

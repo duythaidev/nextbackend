@@ -6,7 +6,7 @@ import { removeUserTodos } from '../services/todoServices';
 const router = Router();
 
 router.use(function (req, res, next) {
-    setTimeout(next, 1000)
+    setTimeout(next, 10)
 });
 router.get('/', (req, res, next) => {
     res.send('hi uwu')
@@ -16,7 +16,7 @@ router.post('/users', createUser);
 
 router.get('/todos', getUserTodos);
 router.post('/todos', createTodo);
-router.put('/totos', updateUserTodos);
+router.put('/todos', updateUserTodos);
 router.delete('/todos', deleteUserTodos);
 
 export default router;
