@@ -1,4 +1,5 @@
 'use strict';
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Todos', {
@@ -15,7 +16,8 @@ module.exports = {
       isChecked: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-      },  
+
+      },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -30,7 +32,7 @@ module.exports = {
       }
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Todos');
   }
 };

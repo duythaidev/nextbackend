@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded())
 // parse application/json
 app.use(bodyParser.json())
 // Routes
-app.use('/api/items', apiRoutes);
+app.use('/api/', apiRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);

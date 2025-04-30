@@ -1,24 +1,22 @@
 import { Router } from 'express';
-import {
-    createItem,
-    getItems,
-    getItemById,
-    updateItem,
-    deleteItem,
-} from '../controllers/itemController';
-import { getAllUsers } from '../controllers/userController';
+import { createUser, getAllUsers } from '../controllers/userController';
+import { createTodo, deleteUserTodos, getUserTodos, updateUserTodos } from '../controllers/todoController';
+import { removeUserTodos } from '../services/todoServices';
 
 const router = Router();
 
 router.use(function (req, res, next) {
     setTimeout(next, 1000)
 });
-router.get('/', getItems);
+router.get('/', (req, res, next) => {
+    res.send('hi uwu')
+});
 router.get('/users', getAllUsers);
+router.post('/users', createUser);
 
-router.get('/:id', getItemById);
-router.post('/', createItem);
-router.put('/:id', updateItem);
-router.delete('/:id', deleteItem);
+router.get('/todos', getUserTodos);
+router.post('/todos', createTodo);
+router.put('/totos', updateUserTodos);
+router.delete('/todos', deleteUserTodos);
 
 export default router;
