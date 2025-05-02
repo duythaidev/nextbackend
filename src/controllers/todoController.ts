@@ -14,6 +14,7 @@ const getAllTodos = async (req: Request, res: Response, next: NextFunction) => {
 
 const createTodo = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        // console.log(req.body)
         const data = await createUserTodos(req.body.description, +req.body.userId)
         res.status(201).json(data);
     } catch (error) {
@@ -27,7 +28,10 @@ const createTodo = async (req: Request, res: Response, next: NextFunction) => {
 
 const getUserTodos = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const data = await fetchUserTodos(+req.body.userId)
+        // if (!req.headers.userid) {
+        //     throw new Error('No user id')
+        // }
+        const data = await fetchUserTodos(+(req?.headers?.userid ? +req.headers.userid: 1) )
         res.status(201).json(data);
     } catch (error) {
         console.log(error)
@@ -37,6 +41,7 @@ const getUserTodos = async (req: Request, res: Response, next: NextFunction) => 
         });;
     }
 };
+
 const updateUserTodos = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = await checkUserTodos(+req.body.todoId, req.body.isChecked, +req.body.userId)
@@ -49,6 +54,7 @@ const updateUserTodos = async (req: Request, res: Response, next: NextFunction) 
         });;
     }
 };
+
 const deleteUserTodos = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = await removeUserTodos(+req.body.todoId, +req.body.userId)
@@ -61,6 +67,4 @@ const deleteUserTodos = async (req: Request, res: Response, next: NextFunction) 
         });
     }
 };
-
-// const updateUserTodos
 export { createTodo, getAllTodos, getUserTodos, updateUserTodos, deleteUserTodos }
