@@ -4,7 +4,7 @@ import { createTodo, deleteUserTodos, getUserTodos, updateUserTodos } from '../c
 import express from 'express'
 
 const router = Router();
-router.use(function (req, res, next) {
+router.use((req, res, next)=> {
     setTimeout(next, 10)
 });
 

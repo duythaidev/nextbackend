@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { checkUserTodos, createUserTodos, fetchAllTodos, fetchUserTodos, removeUserTodos } from '../services/todoServices';
+import { returnResponse } from '../middleware/response';
 
-const getAllTodos = async (req: Request, res: Response, next: NextFunction) => {
+const getAllTodos = async (req: Request, res: Response): Promise<any> => {
     try {
         const data = await fetchAllTodos()
         res.status(201).json(data);
@@ -12,37 +13,36 @@ const getAllTodos = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 
-const createTodo = async (req: Request, res: Response, next: NextFunction) => {
+const createTodo = async (req: Request, res: Response): Promise<any> => {
     try {
-        // console.log(req.body)
-        const data = await createUserTodos(req.body.description, +req.body.userId)
-        res.status(201).json(data);
+        const { description, userId } = req.body
+        if (!(description && userId)) {
+            return returnResponse(res, 400, 'No user id or description', -1)
+        }
+        const data = await createUserTodos(description, +userId)
+        return returnResponse(res, 200, 'Create todo successfully', 0, data);
     } catch (error) {
         console.log(error)
-        res.status(400).json({
-            EM: 'Error to create new todo',
-            EC: -1,
-        });
+        return returnResponse(res, 500, 'Server error', -1)
     }
 };
 
-const getUserTodos = async (req: Request, res: Response, next: NextFunction) => {
+
+
+const getUserTodos = async (req: Request, res: Response): Promise<any> => {
     try {
-        // if (!req.headers.userid) {
-        //     throw new Error('No user id')
-        // }
-        const data = await fetchUserTodos(+(req?.headers?.userid ? +req.headers.userid: 1) )
-        res.status(201).json(data);
+        const { userid } = req.headers
+        if (!userid) {
+            return returnResponse(res, 400, 'No user id or description', -1)
+        }
+        const data = await fetchUserTodos(+(userid ? +userid : 1))
+        return returnResponse(res, 200, 'get todo successfully', 0, data);
     } catch (error) {
-        console.log(error)
-        res.status(400).json({
-            EM: 'Error to get todo',
-            EC: -1,
-        });;
+        return returnResponse(res, 500, 'Server error', -1)
     }
 };
 
-const updateUserTodos = async (req: Request, res: Response, next: NextFunction) => {
+const updateUserTodos = async (req: Request, res: Response): Promise<any> => {
     try {
         const data = await checkUserTodos(+req.body.todoId, req.body.isChecked, +req.body.userId)
         res.status(201).json(data);
@@ -55,16 +55,16 @@ const updateUserTodos = async (req: Request, res: Response, next: NextFunction) 
     }
 };
 
-const deleteUserTodos = async (req: Request, res: Response, next: NextFunction) => {
+const deleteUserTodos = async (req: Request, res: Response): Promise<any> => {
     try {
-        const data = await removeUserTodos(+req.body.todoId, +req.body.userId)
-        res.status(201).json(data);
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({
-            EM: 'Error to delete todo',
-            EC: -1,
-        });
+        const { todoId, userId } = req.body
+        if (!todoId && userId) {
+            return returnResponse(res, 400, 'No user id or description', -1)
+        }
+        const data = await removeUserTodos(+todoId, +userId)
+        return returnResponse(res, 200, 'Delete todo successfully', 0);
+    } catch (error:any) {
+        return returnResponse(res, 500, error.message, -1)
     }
 };
 export { createTodo, getAllTodos, getUserTodos, updateUserTodos, deleteUserTodos }
