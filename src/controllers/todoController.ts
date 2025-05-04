@@ -32,6 +32,7 @@ const createTodo = async (req: Request, res: Response): Promise<any> => {
 const getUserTodos = async (req: Request, res: Response): Promise<any> => {
     try {
         const { userid } = req.headers
+        console.log(req.headers)
         if (!userid) {
             return returnResponse(res, 400, 'No user id or description', -1)
         }
@@ -44,26 +45,28 @@ const getUserTodos = async (req: Request, res: Response): Promise<any> => {
 
 const updateUserTodos = async (req: Request, res: Response): Promise<any> => {
     try {
-        const data = await checkUserTodos(+req.body.todoId, req.body.isChecked, +req.body.userId)
-        res.status(201).json(data);
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({
-            EM: 'Error to update todo',
-            EC: -1,
-        });;
+        const { todoId, isChecked, userId } = req.body
+        if (!todoId && !userId) {
+            return returnResponse(res, 400, 'No user id or description', -1)
+        }
+        const data = await checkUserTodos(+todoId, isChecked, +userId)
+        console.log("remove user ?", data)
+        return returnResponse(res, 200, 'update todo successfully', 0);
+    } catch (error: any) {
+        return returnResponse(res, 500, 'Error to update todo', -1)
     }
 };
 
 const deleteUserTodos = async (req: Request, res: Response): Promise<any> => {
     try {
         const { todoId, userId } = req.body
-        if (!todoId && userId) {
+        if (!todoId && !userId) {
             return returnResponse(res, 400, 'No user id or description', -1)
         }
         const data = await removeUserTodos(+todoId, +userId)
+        console.log("remove user ?", data)
         return returnResponse(res, 200, 'Delete todo successfully', 0);
-    } catch (error:any) {
+    } catch (error: any) {
         return returnResponse(res, 500, error.message, -1)
     }
 };

@@ -19,7 +19,7 @@ const createUserTodos = async (description: string, userId: number) => {
 }
 const checkUserTodos = async (todoId: number, isChecked: boolean, userId: number) => {
     const [updatedCount, updatedRows] = await db.Todo.update(
-        { isChecked },
+        { isChecked: !isChecked },
         {
             returning: true,
             where: {

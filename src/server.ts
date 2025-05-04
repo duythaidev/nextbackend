@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import configRoutes from './routes/api';
+import configRoutes from './routes/configAPI';
 var cors = require('cors')
 
 require('dotenv').config()
