@@ -1,6 +1,5 @@
-import { Request, Response, NextFunction, response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { createUserService, fetchAllUsers, fetchUserByEmail, fetchUserByName } from '../services/userService';
-import bcrypt from 'bcrypt';
 import { returnResponse } from '../middleware/response';
 import { hashPassword } from '../utils/hashPassword';
 
