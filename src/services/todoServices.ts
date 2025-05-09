@@ -1,5 +1,6 @@
-// @ts-ignore
-import db from '../models/index.js'
+
+const db = require('../models/');
+
 const fetchAllTodos = async () => {
     return await db.Todo.findAll()
 }

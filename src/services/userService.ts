@@ -1,18 +1,18 @@
-// @ts-ignore
-import db from '../models/index.js'
+const db = require('../models/');
+
 const fetchAllUsers = async () => {
     return await db.User.findAll()
 }
 const fetchUserByEmail = async (email: string) => {
     return await db.User.findOne({
-        where:{ email }, 
+        where: { email },
         raw: true
     })
 }
 const fetchUserByName = async (name: string) => {
 
     return await db.User.findOne({
-        where:{ name },
+        where: { name },
         raw: true
     })
 }

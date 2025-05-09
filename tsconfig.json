@@ -17,6 +17,7 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "strict": true,
+    "allowJs": true
   },
   "include": [
     "./**/*.ts",
