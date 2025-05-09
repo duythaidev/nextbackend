@@ -14,14 +14,14 @@ module.exports = {
       {
         name: 'uwu2',
         email: 'example2@example.com',
-        password: 'Doe',
+        password: 'Lmao',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: 'uwu3',
         email: 'example3@example.com',
-        password: 'Doe',
+        password: 'UwU',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
